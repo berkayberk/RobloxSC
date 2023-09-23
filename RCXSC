@@ -127,7 +127,7 @@ local Section = buyTab:AddSection({
 buyTab:AddDropdown({
     Name = "Select Egg",
     Default = "Basic",
-    Options = { "Basic", "Mythic", "Forest", "Beach", "Atlantis", "Desert", "Winter", "Volcano", "Moon", "Cyber",
+    Options = { "Basic", "Mythic", "Forest", "Beach", "Atlantis", "Desert", "Winter", "Volcano", "Magma", "Moon", "Cyber",
         "Magic", "Heaven",
         "Nuclear", "Void", "Spooky", "Cave", "Steampunk", "Hell" },
     Callback = function(Value)
