@@ -1,6 +1,16 @@
 getgenv().Click = false
 getgenv().Rebirth = false
 getgenv().HatchEgg = false
+getgenv().Upgrade1 = false
+getgenv().Upgrade2 = false
+getgenv().Upgrade3 = false
+getgenv().Upgrade4 = false
+getgenv().Upgrade5 = false
+getgenv().Upgrade6 = false
+getgenv().Upgrade7 = false
+getgenv().Upgrade8 = false
+getgenv().Upgrade9 = false
+getgenv().typeUpgrade = "ClickMultiplier"
 getgenv().typeEgg = "Basic"
 getgenv().typeOpen = "Single"
 getgenv().Slider = 1
@@ -38,10 +48,25 @@ function autoHatchEgg(eggType, openType)
     end)
 end
 
+function autoUpgrade(upgradeType)
+    spawn(function()
+        while wait() do
+            if not Upgrade1 or Upgrade2 or Upgrade3 or Upgrade4 or Upgrade5 or Upgrade6 or Upgrade7 or Upgrade8 or Upgrade9 then break end
+            game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("Upgrade"):InvokeServer(
+            upgradeType)
+        end
+    end)
+end
+
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Window = OrionLib:MakeWindow({ Name = "Yulek - Rebirth Champions X", HidePremium = true, SaveConfig = true,
-    ConfigFolder = "YulekConfig", IntroText = "Yulek",  })
+local Window = OrionLib:MakeWindow({
+    Name = "Yulek - Rebirth Champions X",
+    HidePremium = true,
+    SaveConfig = true,
+    ConfigFolder = "YulekConfig",
+    IntroText = "Yulek",
+})
 
 local farmTab = Window:MakeTab({
     Name = "Farm",
@@ -125,6 +150,137 @@ buyTab:AddToggle({
     Callback = function(Value)
         HatchEgg = Value
         autoHatchEgg(typeEgg, typeOpen)
+    end
+})
+
+local upgTab = Window:MakeTab({
+    Name = "Upgrade",
+    PremiumOnly = false
+})
+
+local Section = upgTab:AddSection({
+    Name = "Click Multiplier",
+})
+
+upgTab:AddToggle({
+    Name = "Click Multiplier",
+    Default = false,
+    Callback = function(Value)
+        Upgrade1 = Value
+        typeUpgrade = "ClickMultiplier"
+        autoUpgrade(typeUpgrade)
+    end
+})
+
+local Section = upgTab:AddSection({
+    Name = "Rebirth Buttons",
+})
+
+upgTab:AddToggle({
+    Name = "Rebirth Buttons",
+    Default = false,
+    Callback = function(Value)
+        Upgrade1 = Value
+        typeUpgrade = "RebirthButtons"
+        autoUpgrade(typeUpgrade)
+    end
+})
+
+local Section = upgTab:AddSection({
+    Name = "Gems Multiplier",
+})
+
+upgTab:AddToggle({
+    Name = "Gems Multiplier",
+    Default = false,
+    Callback = function(Value)
+        Upgrade1 = Value
+        typeUpgrade = "GemsMultiplier"
+        autoUpgrade(typeUpgrade)
+    end
+})
+
+local Section = upgTab:AddSection({
+    Name = "Walk Speed",
+})
+
+upgTab:AddToggle({
+    Name = "Walk Speed",
+    Default = false,
+    Callback = function(Value)
+        Upgrade1 = Value
+        typeUpgrade = "WalkSpeed"
+        autoUpgrade(typeUpgrade)
+    end
+})
+
+local Section = upgTab:AddSection({
+    Name = "Luck Multiplier",
+})
+
+upgTab:AddToggle({
+    Name = "Luck Multiplier",
+    Default = false,
+    Callback = function(Value)
+        Upgrade1 = Value
+        typeUpgrade = "LuckMultiplier"
+        autoUpgrade(typeUpgrade)
+    end
+})
+
+local Section = upgTab:AddSection({
+    Name = "+5 Pet Storage",
+})
+
+upgTab:AddToggle({
+    Name = "+5 Pet Storage",
+    Default = false,
+    Callback = function(Value)
+        Upgrade1 = Value
+        typeUpgrade = "PetStorage"
+        autoUpgrade(typeUpgrade)
+    end
+})
+
+local Section = upgTab:AddSection({
+    Name = "+1 Pet Equip",
+})
+
+upgTab:AddToggle({
+    Name = "+1 Pet Equip",
+    Default = false,
+    Callback = function(Value)
+        Upgrade1 = Value
+        typeUpgrade = "Pet Equip"
+        autoUpgrade(typeUpgrade)
+    end
+})
+
+local Section = upgTab:AddSection({
+    Name = "Faster Auto Clicker",
+})
+
+upgTab:AddToggle({
+    Name = "Faster Auto Clicker",
+    Default = false,
+    Callback = function(Value)
+        Upgrade1 = Value
+        typeUpgrade = "FasterFreeAutoClicker"
+        autoUpgrade(typeUpgrade)
+    end
+})
+
+local Section = upgTab:AddSection({
+    Name = "Free Auto Clicker",
+})
+
+upgTab:AddToggle({
+    Name = "Free Auto Clicker",
+    Default = false,
+    Callback = function(Value)
+        Upgrade1 = Value
+        typeUpgrade = "FreeAutoClicker"
+        autoUpgrade(typeUpgrade)
     end
 })
 
