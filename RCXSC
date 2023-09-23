@@ -1,0 +1,131 @@
+getgenv().Click = false
+getgenv().Rebirth = false
+getgenv().HatchEgg = false
+getgenv().typeEgg = "Basic"
+getgenv().typeOpen = "Single"
+getgenv().Slider = 1
+
+
+function autoClick()
+    spawn(function()
+        while wait() do
+            if not Click then break end
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Click3"):FireServer()
+        end
+    end)
+end
+
+function autoRebirth(rebirthAmount)
+    spawn(function()
+        while wait() do
+            if not Rebirth then break end
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rebirth"):FireServer(rebirthAmount)
+        end
+    end)
+end
+
+function autoHatchEgg(eggType, openType)
+    spawn(function()
+        while wait() do
+            if not HatchEgg then break end
+            local args = {
+                [1] = eggType,
+                [2] = openType
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("Unbox"):InvokeServer(unpack(
+                args))
+        end
+    end)
+end
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({ Name = "Yulek - Rebirth Champions X", HidePremium = true, SaveConfig = true,
+    ConfigFolder = "YulekConfig", IntroText = "Yulek",  })
+
+local farmTab = Window:MakeTab({
+    Name = "Farm",
+    PremiumOnly = false
+})
+
+local Section = farmTab:AddSection({
+    Name = "Auto Click"
+})
+
+farmTab:AddToggle({
+    Name = "Auto Click",
+    Default = false,
+    Callback = function(value)
+        Click = value
+        autoClick()
+    end
+})
+
+local Section = farmTab:AddSection({
+    Name = "Auto Rebirth"
+})
+
+
+farmTab:AddSlider({
+    Name = "Slider",
+    Min = 1,
+    Max = 150,
+    Default = 1,
+    Color = Color3.fromRGB(255, 255, 255),
+    Increment = 1,
+    ValueName = "Rebirth Amount",
+    Callback = function(Value)
+        Slider = Value
+    end
+})
+
+
+farmTab:AddToggle({
+    Name = "Auto Rebirth",
+    Default = false,
+    Callback = function(Value)
+        Rebirth = Value
+        autoRebirth(Slider)
+    end
+})
+
+
+local buyTab = Window:MakeTab({
+    Name = "Egg",
+    PremiumOnly = false
+})
+
+local Section = buyTab:AddSection({
+    Name = "Auto Hatch",
+})
+
+buyTab:AddDropdown({
+    Name = "Select Egg",
+    Default = "Basic",
+    Options = { "Basic", "Mythic", "Forest", "Beach", "Atlantis", "Desert", "Winter", "Volcano", "Moon", "Cyber",
+        "Magic", "Heaven",
+        "Nuclear", "Void", "Spooky", "Cave", "Steampunk", "Hell" },
+    Callback = function(Value)
+        typeEgg = Value
+    end
+})
+
+buyTab:AddDropdown({
+    Name = "Select Opening Type",
+    Default = "Single",
+    Options = { "Single", "Triple" },
+    Callback = function(Value)
+        typeOpen = Value
+    end
+})
+
+buyTab:AddToggle({
+    Name = "Auto Hatch",
+    Default = false,
+    Callback = function(Value)
+        HatchEgg = Value
+        autoHatchEgg(typeEgg, typeOpen)
+    end
+})
+
+OrionLib:Init()
