@@ -63,7 +63,7 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 local Window = OrionLib:MakeWindow({
     Name = "Yulek - Rebirth Champions X",
     HidePremium = true,
-    SaveConfig = true,
+    SaveConfig = false,
     ConfigFolder = "YulekConfig",
     IntroText = "Yulek",
 })
